@@ -15,9 +15,10 @@ const counterSlice = createSlice({
       state.counter--;
     },
     increase(state, action) {
-      state.counter = state.counter + action.amount;
+      // state.counter = state.counter + action.amount;
+      state.counter = state.counter + action.payload;
     },
-    togleCounter(state) {
+    toggleCounter(state) {
       state.showCounter = !state.showCounter;
     },
   },
@@ -66,5 +67,9 @@ const store = configureStore({
   reducer: counterSlice.reducer,
   // reducer: {counter: counterSlice.reducer} // multiple reducers
 });
+
+// Methods automaticlly created by Redux Toolkit
+// the key will create action objects
+export const counterActions = counterSlice.actions;
 
 export default store;
