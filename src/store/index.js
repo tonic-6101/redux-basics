@@ -2,11 +2,11 @@
 
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const initialState = { counter: 0, showCounter: true };
+const initialCounterState = { counter: 0, showCounter: true };
 
 const counterSlice = createSlice({
   name: 'counter',
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state) {
       state.counter++; // Mute the state is allowed because of Redux using Lmer package, that clones the state.
@@ -20,6 +20,23 @@ const counterSlice = createSlice({
     },
     toggleCounter(state) {
       state.showCounter = !state.showCounter;
+    },
+  },
+});
+
+const initialAuthState = {
+  isAutenticated: false,
+};
+
+const authSlice = createSlice({
+  name: 'authentication',
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAutenticated = true;
+    },
+    logout(state) {
+      state.isAutenticated = false;
     },
   },
 });
@@ -64,12 +81,13 @@ const counterSlice = createSlice({
 // const store = createStore(counterSlice.reducer); // Note: it can be only one reducer to createStore
 
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
   // reducer: {counter: counterSlice.reducer} // multiple reducers
 });
 
 // Methods automaticlly created by Redux Toolkit
 // the key will create action objects
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;
